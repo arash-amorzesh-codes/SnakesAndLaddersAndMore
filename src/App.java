@@ -21,8 +21,11 @@ public class App {
             }
         }
         String[] pl = new String[num];
+        sc.nextLine();//erasing buffer
         for(int i=0;i<num;i++){
-            System.out.print("enter player ");System.out.print(i+1);System.out.print("\'s name:\t");
+            System.out.print("enter player ");
+            System.out.print(i+1);
+            System.out.print("\'s name:\t");
             pl[i] = sc.nextLine();
         }
         Map map = new Map(pl,100);
@@ -42,14 +45,12 @@ public class App {
                 String str = map.checkWin();
                 if(str!=null){
                     map.endGame(str);
-                    System.out.print("do you want to play again(y/n)?\t");
-                    if (sc.nextLine() == "y"){
-                        main(args);
-                    }else{
-                        con = 1;
-                    }
+                    sc.close();
+                    return;
                 }
             }
         }
+        //never reachs
+        sc.close();
     }
 }
