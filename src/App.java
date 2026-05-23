@@ -1,24 +1,27 @@
 import java.util.Random;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 public class App {
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
         System.out.print("welcome to our game!\n=================================\nhow many players want to play?\t");
         int num = 0;
-        while (true) {
-            try{num = sc.nextInt();}catch(InputMismatchException ime){
-                System.out.print("a number please!\t");
+        int got = 0;
+        try{
+            while (got == 0) {
+                num = sc.nextInt();
+                if (num>8){
+                    System.out.print("the maximum number of players is 8:\t");
+                }else if(num<=0){
+                    System.out.print("come on, what are you saying?\t");
+                }else if(num==1){
+                    System.out.print("1player mode is not ready\t");
+                }else{
+                    got = 1;
+                }
             }
-            if (num>8){
-                System.out.print("the maximum number of players is 8:\t");
-            }else if(num<=0){
-                System.out.print("come on, what are you saying?\t");
-            }else if(num==1){
-                System.out.print("1player mode is not ready\t");
-            }else{
-                break;
-            }
+        }catch(Exception e){
+            System.out.println("an error has accoured");
+            main(args);
         }
         String[] pl = new String[num];
         sc.nextLine();//erasing buffer
