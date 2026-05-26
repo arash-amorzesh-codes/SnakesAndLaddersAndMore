@@ -1,7 +1,7 @@
 public class Piece {
     private Color color;
     private int place;
-    Piece(Color c){
+    public Piece(Color c){
         this.color = c;
         this.place = 0;
     }

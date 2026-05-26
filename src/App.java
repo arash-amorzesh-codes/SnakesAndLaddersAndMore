@@ -31,18 +31,28 @@ public class App {
             System.out.print("\'s name:\t");
             pl[i] = sc.nextLine();
         }
-        Map map = new Map(pl,100);
+        WayObject[] wo = new WayObject[5];
+        wo[0] = new OneWayPortal(50, 6);//sample
+        wo[1] = new OneWayPortal(98, 73);
+        wo[2] = new OneWayPortal(26, 99);
+        wo[3] = new OneWayPortal(20, 30);
+        wo[4] = new OneWayPortal(39, 45);
+        Map map = new Map(pl,100,wo);
         Random rander = new Random();
         Piece[] ps = new Piece[num];
         ps = map.getPieces();
+        for(int i=0;i<num;i++){
+            System.out.print(pl[i]+"\'s color is ");System.out.println(ps[i].getColor());
+        }
         int con = 1;
         while (con == 1) {
             for(int i=0;i<num&con==1;i++){
-                System.out.print("player ");System.out.print(i+1);System.out.print("\'s turn:(press enter)");
+                System.out.print(ps[i].getColor()+"\'s turn:(press enter)");
                 sc.nextLine();
                 int dice = rander.nextInt(6) + 1;
                 System.out.print(dice);System.out.println("!!!");
                 ps[i].Goto(ps[i].getX()+dice);
+                map.checkWayObjects();
                 System.out.print("X:");
                 System.out.println(ps[i].getX());
                 String str = map.checkWin();

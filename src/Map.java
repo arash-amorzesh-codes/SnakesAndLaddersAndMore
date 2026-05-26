@@ -1,10 +1,12 @@
 public class Map {
     private Piece[] pieces;
     private int end;
+    private WayObject[] wayObjects;
     private String[] players;
-    Map(String[] players,int end){
+    public Map(String[] players,int end,WayObject[] wayObjects){
         this.players = players;
         this.end = end;
+        this.wayObjects = wayObjects;
         this.pieces = new Piece[players.length];
         for(int i=0;i<players.length;i++){
             this.pieces[i] = new Piece(colornum(i+1));
@@ -20,6 +22,13 @@ public class Map {
             }
         }
         return null;
+    }
+    public void checkWayObjects(){
+        for(int i=0;i<this.wayObjects.length;i++){
+            for(int j=0;j<this.pieces.length;j++){
+                this.wayObjects[i].update(this.pieces[j]);
+            }
+        }
     }
     public Piece[] getPieces() {
         return pieces;
@@ -49,7 +58,7 @@ public class Map {
             case 8:
                 return Color.BLACK;
             default:
-                System.out.println("this is imposible!");;
+                System.out.println("this is imposible!");
         }
         return null;
     }
