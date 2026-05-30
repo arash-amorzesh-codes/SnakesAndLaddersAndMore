@@ -46,10 +46,11 @@ public class App {
         }
         int con = 1;
         while (con == 1) {
+            int dice;
             for(int i=0;i<num&con==1;i++){
-                System.out.print(ps[i].getColor()+"\'s turn:(press enter)");
+                do{System.out.print(ps[i].getColor()+"\'s turn:(press enter)");
                 sc.nextLine();
-                int dice = rander.nextInt(6) + 1;
+                dice = rander.nextInt(6) + 1;
                 System.out.print(dice);System.out.println("!!!");
                 ps[i].setSteps(dice);
                 while (ps[i].update()==1);
@@ -67,7 +68,7 @@ public class App {
                     map.endGame(str);
                     sc.close();
                     return;
-                }
+                }}while(dice == 6);
             }
         }
         //never reachs
