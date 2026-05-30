@@ -1,9 +1,25 @@
 public class Piece {
     private Color color;
     private int place;
+    private int steps;
     public Piece(Color c){
         this.color = c;
         this.place = 0;
+    }
+    public int getSteps() {
+        return steps;
+    }
+    public void setSteps(int steps) {
+        this.steps = steps;
+    }
+    public int update(){
+        if(this.steps==0){
+            return 0;
+        }else{
+            this.steps--;
+            this.place++;
+            return 1;
+        }
     }
     public void Goto(int x){
         this.place = x;

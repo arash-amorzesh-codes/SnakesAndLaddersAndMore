@@ -51,7 +51,8 @@ public class App {
                 sc.nextLine();
                 int dice = rander.nextInt(6) + 1;
                 System.out.print(dice);System.out.println("!!!");
-                ps[i].Goto(ps[i].getX()+dice);
+                ps[i].setSteps(dice);
+                while (ps[i].update()==1);
                 map.checkWayObjects();
                 System.out.print("X:");
                 System.out.println(ps[i].getX());
