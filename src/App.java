@@ -54,6 +54,12 @@ public class App {
                 ps[i].setSteps(dice);
                 while (ps[i].update()==1);
                 map.checkWayObjects();
+                for(int j=0;j<num;j++){
+                    if(ps[j].getColor()!=ps[i].getColor()&&ps[j].getX()==ps[i].getX()){
+                        ps[j].Goto(0);
+                        System.out.println(ps[j].getColor().toString() + " was killed by " + ps[i].getColor().toString() );
+                    }
+                }
                 System.out.print("X:");
                 System.out.println(ps[i].getX());
                 String str = map.checkWin();
