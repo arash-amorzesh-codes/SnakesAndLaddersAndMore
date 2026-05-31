@@ -4,8 +4,17 @@ public class Piece {
     private int steps;
     public Piece(Color c){
         this.color = c;
+        this.steps = 0;
+        this.dices = 0;
         this.place = 0;
     }
+    public int getDices() {
+        return dices;
+    }
+    public void setDices(int dices) {
+        this.dices = dices;
+    }
+    private int dices;
     public int getSteps() {
         return steps;
     }

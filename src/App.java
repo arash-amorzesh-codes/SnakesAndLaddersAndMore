@@ -31,12 +31,17 @@ public class App {
             System.out.print("\'s name:\t");
             pl[i] = sc.nextLine();
         }
-        WayObject[] wo = new WayObject[5];
+        WayObject[] wo = new WayObject[10];
         wo[0] = new OneWayPortal(50, 6);//sample
         wo[1] = new OneWayPortal(98, 73);
         wo[2] = new OneWayPortal(26, 99);
         wo[3] = new OneWayPortal(20, 30);
         wo[4] = new OneWayPortal(39, 45);
+        wo[5] = new x2House(10);
+        wo[6] = new x2House(77);
+        wo[7] = new x2House(23);
+        wo[8] = new x2House(5);
+        wo[9] = new x2House(90);
         Map map = new Map(pl,100,wo);
         Random rander = new Random();
         Piece[] ps = new Piece[num];
@@ -48,11 +53,17 @@ public class App {
         while (con == 1) {
             int dice;
             for(int i=0;i<num&con==1;i++){
-                do{System.out.print(ps[i].getColor()+"\'s turn:(press enter)");
+                ps[i].setDices(ps[i].getDices()+1);
+                do{
+                ps[i].setDices(ps[i].getDices()-1);
+                System.out.print(ps[i].getColor()+"\'s turn:(press enter)");
                 sc.nextLine();
                 dice = rander.nextInt(6) + 1;
                 System.out.print(dice);System.out.println("!!!");
                 ps[i].setSteps(dice);
+                if(dice==6){
+                    ps[i].setDices(ps[i].getDices()+1);
+                }
                 while (ps[i].update()==1);
                 map.checkWayObjects();
                 for(int j=0;j<num;j++){
@@ -68,7 +79,7 @@ public class App {
                     map.endGame(str);
                     sc.close();
                     return;
-                }}while(dice == 6);
+                }}while(ps[i].getDices()>0);
             }
         }
         //never reachs
