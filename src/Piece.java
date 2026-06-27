@@ -2,11 +2,19 @@ public class Piece {
     private Color color;
     private int place;
     private int steps;
+    private boolean inswamp;
     public Piece(Color c){
         this.color = c;
         this.steps = 0;
         this.dices = 0;
         this.place = 0;
+        this.inswamp = false;
+    }
+    public boolean isInSwamp() {
+        return inswamp;
+    }
+    public void setInSwamp(boolean inswamp) {
+        this.inswamp = inswamp;
     }
     public int getDices() {
         return dices;

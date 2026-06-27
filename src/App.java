@@ -39,9 +39,9 @@ public class App {
         wo[4] = new OneWayPortal(39, 45);
         wo[5] = new x2House(10);
         wo[6] = new x2House(77);
-        wo[7] = new x2House(23);
-        wo[8] = new x2House(5);
-        wo[9] = new x2House(90);
+        wo[7] = new Swamp(23);
+        wo[8] = new Swamp(5);
+        wo[9] = new Swamp(90);
         Map map = new Map(pl,100,wo);
         Random rander = new Random();
         Piece[] ps = new Piece[num];
@@ -54,8 +54,13 @@ public class App {
             int dice;
             for(int i=0;i<num&con==1;i++){
                 ps[i].setDices(ps[i].getDices()+1);
-                do{
+                while(ps[i].getDices()>0){
                 ps[i].setDices(ps[i].getDices()-1);
+                if(ps[i].isInSwamp()){
+                    System.out.println(ps[i].getColor().toString()+" is in swamp");
+                    ps[i].setInSwamp(false);
+                    ps[i].Goto(ps[i].getX()+1);
+                }else{
                 System.out.print(ps[i].getColor()+"\'s turn:(press enter)");
                 sc.nextLine();
                 dice = rander.nextInt(6) + 1;
@@ -65,9 +70,9 @@ public class App {
                     ps[i].setDices(ps[i].getDices()+1);
                 }
                 while (ps[i].update()==1);
-                map.checkWayObjects();
+                map.checkWayObjects();}
                 for(int j=0;j<num;j++){
-                    if(ps[j].getColor()!=ps[i].getColor()&&ps[j].getX()==ps[i].getX()){
+                    if(ps[j].getColor()!=ps[i].getColor()&&ps[j].getX()==ps[i].getX()&&!ps[j].isInSwamp()){
                         ps[j].Goto(0);
                         System.out.println(ps[j].getColor().toString() + " was killed by " + ps[i].getColor().toString() );
                     }
@@ -79,7 +84,7 @@ public class App {
                     map.endGame(str);
                     sc.close();
                     return;
-                }}while(ps[i].getDices()>0);
+                }}
             }
         }
         //never reachs
