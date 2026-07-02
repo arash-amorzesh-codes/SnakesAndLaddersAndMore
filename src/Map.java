@@ -40,9 +40,18 @@ public class Map {
                 WayObject sl = new OneWayPortal(st,ed);
                 wayObjects[index] = sl;
                 index++;
-            }
-            if(line.equals("END")){
+            }else if(line.equals("X2HOUSE")){
+                int st = Integer.parseInt(lines.get(i+1));
+                WayObject sl = new x2House(st);
+                wayObjects[index] = sl;
+                index++;
+            }else if(line.equals("END")){
                 end = Integer.parseInt(lines.get(i+1));
+            }else if(line.equals("Swamp")){
+                int st = Integer.parseInt(lines.get(i+1));
+                WayObject sl = new Swamp(st);
+                wayObjects[index] = sl;
+                index++;
             }
         }
         if(end==-1){

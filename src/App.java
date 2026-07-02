@@ -31,15 +31,10 @@ public class App {
             System.out.print("\'s name:\t");
             pl[i] = sc.nextLine();
         }
-        /* 
-        WayObject[] wo = new WayObject[5];
-        wo[0] = new OneWayPortal(50, 6);//sample
-        wo[1] = new OneWayPortal(98, 73);
-        wo[2] = new OneWayPortal(26, 99);
-        wo[3] = new OneWayPortal(20, 30);
-        wo[4] = new OneWayPortal(39, 45);*/
+
         Map map = null;
         try{map = Map.readFile("resources/samplemap.txt", pl);}catch(Exception e){e.printStackTrace();}
+
         Random rander = new Random();
         Piece[] ps = new Piece[num];
         ps = map.getPieces();
@@ -48,14 +43,32 @@ public class App {
         }
         int con = 1;
         while (con == 1) {
+            int dice;
             for(int i=0;i<num&con==1;i++){
+                ps[i].setDices(ps[i].getDices()+1);
+                while(ps[i].getDices()>0){
+                ps[i].setDices(ps[i].getDices()-1);
+                if(ps[i].isInSwamp()){
+                    System.out.println(ps[i].getColor().toString()+" is in swamp");
+                    ps[i].setInSwamp(false);
+                    ps[i].Goto(ps[i].getX()+1);
+                }else{
                 System.out.print(ps[i].getColor()+"\'s turn:(press enter)");
                 sc.nextLine();
-                int dice = rander.nextInt(6) + 1;
+                dice = rander.nextInt(6) + 1;
                 System.out.print(dice);System.out.println("!!!");
                 ps[i].setSteps(dice);
+                if(dice==6){
+                    ps[i].setDices(ps[i].getDices()+1);
+                }
                 while (ps[i].update()==1);
-                map.checkWayObjects();
+                map.checkWayObjects();}
+                for(int j=0;j<num;j++){
+                    if(ps[j].getColor()!=ps[i].getColor()&&ps[j].getX()==ps[i].getX()&&!ps[j].isInSwamp()){
+                        ps[j].Goto(0);
+                        System.out.println(ps[j].getColor().toString() + " was killed by " + ps[i].getColor().toString() );
+                    }
+                }
                 System.out.print("X:");
                 System.out.println(ps[i].getX());
                 String str = map.checkWin();
@@ -63,7 +76,7 @@ public class App {
                     map.endGame(str);
                     sc.close();
                     return;
-                }
+                }}
             }
         }
         //never reachs
