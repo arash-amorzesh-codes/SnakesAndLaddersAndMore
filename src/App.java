@@ -31,13 +31,15 @@ public class App {
             System.out.print("\'s name:\t");
             pl[i] = sc.nextLine();
         }
+        /* 
         WayObject[] wo = new WayObject[5];
         wo[0] = new OneWayPortal(50, 6);//sample
         wo[1] = new OneWayPortal(98, 73);
         wo[2] = new OneWayPortal(26, 99);
         wo[3] = new OneWayPortal(20, 30);
-        wo[4] = new OneWayPortal(39, 45);
-        Map map = new Map(pl,100,wo);
+        wo[4] = new OneWayPortal(39, 45);*/
+        Map map = null;
+        try{map = Map.readFile("resources/samplemap.txt", pl);}catch(Exception e){e.printStackTrace();}
         Random rander = new Random();
         Piece[] ps = new Piece[num];
         ps = map.getPieces();

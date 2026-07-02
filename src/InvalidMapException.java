@@ -1,0 +1,1 @@
+public class InvalidMapException extends Exception {}

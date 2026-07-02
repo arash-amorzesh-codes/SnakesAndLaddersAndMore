@@ -1,3 +1,6 @@
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
 public class Map {
     private Piece[] pieces;
     private int end;
@@ -22,6 +25,31 @@ public class Map {
             }
         }
         return null;
+    }
+    public static Map readFile(String url,String[] players) throws Exception{
+        List<String> lines = Files.readAllLines(Path.of(url));
+        int n = Integer.parseInt(lines.get(0));
+        WayObject[] wayObjects = new WayObject[n];
+        int index=0;
+        int end = -1;
+        for(int i=1;i<lines.size();i++){
+            String line = lines.get(i);
+            if(line.equals("SNAKE") || line.equals("LADDER")){
+                int st = Integer.parseInt(lines.get(i+1));
+                int ed = Integer.parseInt(lines.get(i+2));
+                WayObject sl = new OneWayPortal(st,ed);
+                wayObjects[index] = sl;
+                index++;
+            }
+            if(line.equals("END")){
+                end = Integer.parseInt(lines.get(i+1));
+            }
+        }
+        if(end==-1){
+            throw new InvalidMapException();
+        }
+        Map m = new Map(players, end, wayObjects);
+        return m;
     }
     public void checkWayObjects(){
         for(int i=0;i<this.wayObjects.length;i++){
