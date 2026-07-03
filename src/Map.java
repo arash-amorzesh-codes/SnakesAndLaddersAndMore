@@ -34,24 +34,38 @@ public class Map {
         int end = -1;
         for(int i=1;i<lines.size();i++){
             String line = lines.get(i);
-            if(line.equals("SNAKE") || line.equals("LADDER")){
-                int st = Integer.parseInt(lines.get(i+1));
-                int ed = Integer.parseInt(lines.get(i+2));
-                WayObject sl = new OneWayPortal(st,ed);
-                wayObjects[index] = sl;
-                index++;
-            }else if(line.equals("X2HOUSE")){
-                int st = Integer.parseInt(lines.get(i+1));
-                WayObject sl = new x2House(st);
-                wayObjects[index] = sl;
-                index++;
-            }else if(line.equals("END")){
-                end = Integer.parseInt(lines.get(i+1));
-            }else if(line.equals("Swamp")){
-                int st = Integer.parseInt(lines.get(i+1));
-                WayObject sl = new Swamp(st);
-                wayObjects[index] = sl;
-                index++;
+            switch (line) {
+                case "SNAKE":{
+                    int st = Integer.parseInt(lines.get(i+1));
+                    int ed = Integer.parseInt(lines.get(i+2));
+                    WayObject sl = new OneWayPortal(st,ed);
+                    wayObjects[index] = sl;
+                    index++;
+                    break;}
+                case "LADDER":{
+                    int st = Integer.parseInt(lines.get(i+1));
+                    int ed = Integer.parseInt(lines.get(i+2));
+                    WayObject sl = new OneWayPortal(st,ed);
+                    wayObjects[index] = sl;
+                    index++;
+                    break;}
+                case "X2HOUSE":{
+                    int st = Integer.parseInt(lines.get(i+1));
+                    WayObject sl = new x2House(st);
+                    wayObjects[index] = sl;
+                    index++;
+                    break;}
+                case "SWAMP":{
+                    int st = Integer.parseInt(lines.get(i+1));
+                    WayObject sl = new Swamp(st);
+                    wayObjects[index] = sl;
+                    index++;
+                    break;}
+                case "END":{
+                    end = Integer.parseInt(lines.get(i+1));
+                    break;}
+                default:
+                    break;
             }
         }
         if(end==-1){

@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.Random;
 import java.util.Scanner;
 public class App {
@@ -25,17 +26,27 @@ public class App {
         }
         String[] pl = new String[num];
         sc.nextLine();//erasing buffer
+        Random rander = new Random();
         for(int i=0;i<num;i++){
             System.out.print("enter player ");
             System.out.print(i+1);
             System.out.print("\'s name:\t");
             pl[i] = sc.nextLine();
         }
-
+        System.out.println("choose map:");
+        File folder = new File("resources");
+        File[] files = folder.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                System.out.println(file.getName());
+            }
+        }
         Map map = null;
-        try{map = Map.readFile("resources/samplemap.txt", pl);}catch(Exception e){e.printStackTrace();}
-
-        Random rander = new Random();
+        while (true) {
+            System.out.println("enter the map name:");
+            String answer = sc.nextLine();
+            try{map = Map.readFile("resources"+answer+".txt", pl);break;}catch(Exception e){System.out.println("not valid");}
+        }
         Piece[] ps = new Piece[num];
         ps = map.getPieces();
         for(int i=0;i<num;i++){
